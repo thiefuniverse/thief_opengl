@@ -1,5 +1,6 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
+#include <cmath>
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
@@ -84,8 +85,10 @@ int main(int argc, char *argv[]) {
     // define vertex shader src
     const char *vertex_shader_src = "#version 330 core \
     layout(location = 0) in vec3 aPos;\
+    out vec4 vertexColor;\
     void main() {\
         gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\
+        vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\
     }\
                                 ";
     // compile vertex shader
@@ -101,8 +104,9 @@ int main(int argc, char *argv[]) {
     // define fragment shader src
     const char *fragment_shader_src = "#version 330 core \
     out vec4 FragColor;\
+    uniform vec4 ourColor;\
     void main() {\
-        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\
+        FragColor = ourColor;\
     }\
                                 ";
     // create fragment shader
@@ -136,14 +140,18 @@ int main(int argc, char *argv[]) {
     glEnableVertexAttribArray(0);
 
     // set wireframe mode
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        float timeValue = glfwGetTime();
+        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
         glUseProgram(shaderProgram);
+        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
         glBindVertexArray(VAO);
         //        glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
