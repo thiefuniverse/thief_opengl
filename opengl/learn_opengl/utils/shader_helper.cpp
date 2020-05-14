@@ -1,42 +1,47 @@
 #include "shader_helper.hpp"
+#include <memory>
 
-ShaderHelper::ShaderHelper(const char *vertexPath, const char *fragmentPath) {
-    std::string vertexCode, fragmentCode;
-    std::ifstream vShaderFile, fShaderFile;
+const std::map< SHADER_TYPE, GLenum > ShaderHelper::ShaderType2GLType = {{VERTEX_SHADER, GL_VERTEX_SHADER}, {FRAGMENT_SHADER, GL_FRAGMENT_SHADER}};
 
-    vShaderFile.open(vertexPath);
-    if (!vShaderFile.is_open()) {
-        std::cout << "shader file read failed" << std::endl;
+ShaderHelper::ShaderHelper() {
+    ID = glCreateProgram();
+}
+
+bool ShaderHelper::addShaderByPath(const char *shader_path) {
+    std::unique_ptr< char[] > shader_content;
+    int len = 0;
+    if (!ReadFile(shader_path, shader_path, len)) {
+        std::cout << "read shader path failed: " << shader_path << std::endl;
+        return false;
     }
-    fShaderFile.open(fragmentPath);
-    if (!fShaderFile.is_open()) {
-        std::cout << "shader file read failed" << std::endl;
+    return addShaderByContent(shader_content.get());
+}
+
+bool ShaderHelper::addShaderByContent(const char *shader_content, SHADER_TYPE type) {
+    int shader_id = 0;
+    bool ret = CompileShader(shader_content, type, shader_id);
+    if (!ret) {
+        std::cout << "compile shader error" << std::endl;
+        return false;
     }
+    shaders_id_buffer.push_back(shader_id);
+    return false;
+}
 
-    std::stringstream vShaderStream, fShaderStream;
-    vShaderStream << vShaderFile.rdbuf();
-    fShaderStream << fShaderFile.rdbuf();
-
-    vShaderFile.close();
-    fShaderFile.close();
-    vertexCode = vShaderStream.str();
-    fragmentCode = fShaderStream.str();
-
-    const char *vShaderCode = vertexCode.c_str();
-    const char *fShaderCode = fragmentCode.c_str();
-
+bool ShaderHelper::CompileShader(const char *shader_content, SHADER_TYPE type, int &shader_id) {
     // compile shader
-    unsigned int vertex, fragment;
     int success;
     char infoLog[512];
 
-    vertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex, 1, &vShaderCode, NULL);
-    glCompileShader(vertex);
+    shader_id = glCreateShader();
+    glShaderSource(shader_id, 1, &shader_content, NULL);
+    glCompileShader(shader_id);
 
-    glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
     if (!success) {
-        glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-        std::cout << "vertex compile failed: " << infoLog << std::endl;
+        glGetShaderInfoLog(shader_id, 512, NULL, infoLog);
+        std::cout << "shader compile failed: " << infoLog << std::endl;
+        return false;
     }
+    return true;
 }
