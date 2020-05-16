@@ -17,7 +17,8 @@ aux_source_directory(./utils/ utils_src)
 
 link_directories(/usr/local/Cellar/glfw/3.2.1/lib/)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglfw")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglfw")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw")
 
 # compile test file
 file(GLOB_RECURSE src_cpps ./src/*.cpp)
