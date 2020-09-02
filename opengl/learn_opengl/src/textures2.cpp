@@ -177,6 +177,7 @@ int main() {
         glfwPollEvents();
     }
     glfwTerminate();
+    glBindTexture(GL_TEXTURE2D, texture);
 
     return 0;
 }

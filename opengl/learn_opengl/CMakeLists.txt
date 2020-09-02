@@ -10,6 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g -fsanitize=address -fno-omit-fr
 include_directories(/opt/X11/include)
 include_directories(./deps/glad/include/)
 include_directories(./deps/stb_image/)
+include_directories(./deps/glm/)
 include_directories(./utils/)
 include_directories(/usr/local/Cellar/glfw/3.2.1/include/)
 

@@ -75,3 +75,7 @@ bool ShaderHelper::linkShader() {
 void ShaderHelper::use() {
     glUseProgram(ID);
 }
+
+unsigned int ShaderHelper::getID() {
+    return ID;
+}
