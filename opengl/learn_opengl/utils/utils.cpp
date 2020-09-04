@@ -5,6 +5,7 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <string.h>
 
 bool ReadFile(const char *path, std::unique_ptr< char[] > &content, int &len) {
     std::ifstream f;

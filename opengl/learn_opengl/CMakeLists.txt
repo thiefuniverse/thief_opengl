@@ -1,26 +1,22 @@
-cmake_minimum_required(VERSION 3.16.5)
+cmake_minimum_required(VERSION 3.16.3)
 project(LearnOpenGL)
 
 # set standard with 11
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g -fsanitize=address -fno-omit-frame-pointer")
+set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_C_COMPILER clang)
 
 # include files
-include_directories(/opt/X11/include)
 include_directories(./deps/glad/include/)
 include_directories(./deps/stb_image/)
 include_directories(./deps/glm/)
 include_directories(./utils/)
-include_directories(/usr/local/Cellar/glfw/3.2.1/include/)
 
 aux_source_directory(./deps/glad/src/ glad_src)
 aux_source_directory(./utils/ utils_src)
 
-link_directories(/usr/local/Cellar/glfw/3.2.1/lib/)
-
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglfw")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -lX11 -ldl")
 
 # compile test file
 file(GLOB_RECURSE src_cpps ./src/*.cpp)
