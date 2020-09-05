@@ -16,7 +16,9 @@ include_directories(./utils/)
 aux_source_directory(./deps/glad/src/ glad_src)
 aux_source_directory(./utils/ utils_src)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -lX11 -ldl")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ")
+
+link_libraries("-lglfw -lX11 -ldl")
 
 # compile test file
 file(GLOB_RECURSE src_cpps ./src/*.cpp)
