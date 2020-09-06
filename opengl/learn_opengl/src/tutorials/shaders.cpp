@@ -36,7 +36,8 @@ int main(int argc, char *argv[]) {
     glViewport(0, 0, 800, 600);
 
     //   float vertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
-    float vertices[] = {0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f};
+    float vertices[] = {
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f};
 
     // create a VAO
     unsigned int VAO;
@@ -52,7 +53,7 @@ int main(int argc, char *argv[]) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // 位置属性
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), ( void * )0);
     glEnableVertexAttribArray(0);
     // 颜色属性
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), ( void * )(3 * sizeof(float)));
@@ -62,7 +63,7 @@ int main(int argc, char *argv[]) {
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
     // define vertex shader src
-    const char *vertex_shader_src = "#version 330 core \
+    const char *vertex_shader_src = "#version 330 core \n\
     layout(location = 0) in vec3 aPos;\
     layout(location = 1) in vec3 aColor;\
     out vec3 ourColor;\
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     // define fragment shader src
-    const char *fragment_shader_src = "#version 330 core \
+    const char *fragment_shader_src = "#version 330 core \n\
     out vec4 FragColor;\
     in vec3 ourColor;\
     void main() {\
@@ -118,7 +119,6 @@ int main(int argc, char *argv[]) {
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-
     // set wireframe mode
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
