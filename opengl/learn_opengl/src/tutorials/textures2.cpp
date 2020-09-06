@@ -69,9 +69,9 @@ int main() {
     unsigned int texture;
     glGenTextures(1, &texture);
 
-    glBindTexture(GL_TEXTURE2, texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -89,6 +89,7 @@ int main() {
     unsigned int texture2;
     glGenTextures(1, &texture2);
 
+    std::cout << "texture 1: " << texture2 << std::endl;
     glBindTexture(GL_TEXTURE_2D, texture2);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -103,7 +104,7 @@ int main() {
     // float vertices[] = {0.5f, 0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  0.5f,  0.5f, 0.5f, -0.5f, 0.0f,
     //                     0.0f, 1.0f, 0.0f,  0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  1.0f,
     //                     0.0f, 0.0f, -0.5f, 0.5f, 0.0f, 1.0f,  1.0f,  1.0f, 0.0f, 0.5f};
-    float texture_offset = 0.45;
+    float texture_offset = 0.0;
     float vertices[] = {0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1 - texture_offset, 1 - texture_offset,
                         0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1 - texture_offset, texture_offset,
                         -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, texture_offset,     texture_offset,
@@ -177,7 +178,5 @@ int main() {
         glfwPollEvents();
     }
     glfwTerminate();
-    glBindTexture(GL_TEXTURE2, texture);
-
     return 0;
 }
