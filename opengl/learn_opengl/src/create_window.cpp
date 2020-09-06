@@ -3,6 +3,7 @@
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+    std::cout << "current window size :" << width << " " << height << std::endl;
     glViewport(0, 0, width, height);
 }
 
@@ -17,8 +18,8 @@ void printError(int code, const char* error_string) {
 }
 int main(int argc, char *argv[]) {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwSetErrorCallback(printError);

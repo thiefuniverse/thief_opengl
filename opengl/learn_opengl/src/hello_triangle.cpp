@@ -48,7 +48,13 @@ int main(int argc, char *argv[]) {
         0.0f,  // 左下角
         -0.5f,
         0.5f,
-        0.0f  // 左上角
+        0.0f,  // 左上角
+        0.5f,
+        0.5f,
+        0.0f,  // 右上角
+        -0.5f,
+        -0.5f,
+        0.0f,  // 左下角
     };
 
     unsigned int indices[] = {
@@ -83,14 +89,20 @@ int main(int argc, char *argv[]) {
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
     // define vertex shader src
-    const char *vertex_shader_src = "#version 330 core \
-    layout(location = 0) in vec3 aPos;\
-    out vec4 vertexColor;\
+    const char *vertex_shader_src = "#version 330 core \n\
+    layout (location = 0) in vec3 aPos;\
     void main() {\
         gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\
-        vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\
     }\
                                 ";
+    //    const char *vertex_shader_src = "#version 330 core \
+//    layout (location = 0) in vec3 aPos;\
+//    out vec4 vertexColor;\
+//    void main() {\
+//        gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\
+//        vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\
+//    }\
+
     // compile vertex shader
     glShaderSource(vertexShader, 1, &vertex_shader_src, NULL);
     glCompileShader(vertexShader);
@@ -102,7 +114,7 @@ int main(int argc, char *argv[]) {
         std::cout << "error shader compile failed: " << infoLog << std::endl;
     }
     // define fragment shader src
-    const char *fragment_shader_src = "#version 330 core \
+    const char *fragment_shader_src = "#version 330 core \n\
     out vec4 FragColor;\
     uniform vec4 ourColor;\
     void main() {\
@@ -152,9 +164,12 @@ int main(int argc, char *argv[]) {
         int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
         glUseProgram(shaderProgram);
         glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-        glBindVertexArray(VAO);
-        //        glDrawArrays(GL_TRIANGLES, 0, 3);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(VBO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glUniform4f(vertexColorLocation, 1.0f, 1.0f, 0.0f, 1.0f);
+        glBindVertexArray(VBO);
+        glDrawArrays(GL_TRIANGLES, 3, 3);
+        // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
