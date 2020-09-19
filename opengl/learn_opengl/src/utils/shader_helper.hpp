@@ -4,6 +4,8 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "light.hpp"
+#include "material.hpp"
 #include <glad/glad.h>
 
 #include <fstream>
@@ -46,6 +48,8 @@ public:
     void setValue(const std::string &name, glm::vec3 value) const {
         glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(value));
     }
+    void setMaterial(const std::string flag, material ma);
+    void setLight(const std::string flag, light l);
     unsigned int getID();
 
 private:

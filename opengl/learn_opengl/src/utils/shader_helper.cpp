@@ -79,3 +79,15 @@ void ShaderHelper::use() {
 unsigned int ShaderHelper::getID() {
     return ID;
 }
+
+void ShaderHelper::setMaterial(const std::string flag, material ma) {
+    setValue(flag + ".ambient", ma.ambient_);
+    setValue(flag + ".diffuse", ma.diffuse_);
+    setValue(flag + ".specular", ma.specular_);
+    setValue(flag + ".shininess", ma.shininess_);
+}
+void ShaderHelper::setLight(const std::string flag, light l) {
+    setValue(flag + ".ambient", l.ambient_);
+    setValue(flag + ".diffuse", l.diffuse_);
+    setValue(flag + ".specular", l.specular_);
+}
